@@ -2,6 +2,11 @@
   "name": "module-01-challenge-01",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ext [js] . --fix",
+    "dev": "npm run lint -s && nodemon main",
+    "start": "node main"
+  },
   "repository": "git@github.com:karlscode/gostack-challenges.git",
   "author": "Carlos Jesus <carlos.anderson.ti@gmail.com>",
   "license": "MIT",

@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable eqeqeq */
 const express = require('express');
 
 const server = express();
@@ -8,6 +10,7 @@ const projects = [];
 
 function checkProjectExists(req, res, next) {
   const { id } = req.params;
+
   const project = projects.find((p) => p.id == id);
 
   if (!project) {
@@ -71,6 +74,4 @@ server.post('/projects/:id/tasks', checkProjectExists, (req, res) => {
 
 server.use(logRequests);
 
-
-// eslint-disable-next-line no-console
-server.listen(4000, () => { console.log('server running'); });
+server.listen(3000, () => { console.log('server running'); });
