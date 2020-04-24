@@ -94,7 +94,7 @@ server.put('/projects/:id', checkProjectExists, (req, res) => {
 
   project.title = title;
 
-  return res.status(201).send(project);
+  return res.status(200).send(project);
 });
 
 /**
