@@ -15,8 +15,8 @@ server.use(express.json());
  * [
  *  {
  *    id: "1",
- *    title: "Novo projeto",
- *    tasks: ["Nova tarefa"]
+ *    title: "New project",
+ *    tasks: ["New task"]
  *  }
  * ];
  */
