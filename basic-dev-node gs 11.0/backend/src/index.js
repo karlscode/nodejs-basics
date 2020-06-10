@@ -28,7 +28,16 @@ function validateProjectId(request, response, next) {
   return next()
 }
 
+function projectIndex(id) {
+  const projectIndex = projects.findIndex(project => project.id === id)
+
+  if (projectIndex < 0) {
+    return response.status(400).json({ error: 'Project not found.' })
+  }
+}
+
 app.use(logRequests)
+app.use('/projects/:id', validateProjectId)
 
 app.get('/projects', (request, response) => {
   const { title } = request.query
@@ -54,11 +63,7 @@ app.put('/projects/:id', (request, response) => {
   const { id } = request.params
   const { title, owner } = request.body
 
-  const projectIndex = projects.findIndex(project => project.id === id)
-
-  if (projectIndex < 0) {
-    return response.status(400).json({ error: 'Project not found.' })
-  }
+  projectIndex(id)
 
   const project = {
     id, 
@@ -74,11 +79,7 @@ app.put('/projects/:id', (request, response) => {
 app.delete('/projects/:id', (request, response) => {
   const { id } = request.params
 
-  const projectIndex = projects.findIndex(project => project.id === id)
-
-  if (projectIndex < 0) {
-    return response.status(400).json({ error: 'Project not found.' })
-  }
+  projectIndex(id)
 
   projects.splice(projectIndex, 1)
 
