@@ -1,5 +1,5 @@
 const express = require('express')
-const { uuid } = require('uuidv4')
+const { uuid, isUuid } = require('uuidv4')
 const { request, response } = require('express')
 
 const app = express()
@@ -29,11 +29,7 @@ function validateProjectId(request, response, next) {
 }
 
 function projectIndex(id) {
-  const projectIndex = projects.findIndex(project => project.id === id)
-
-  if (projectIndex < 0) {
-    return response.status(400).json({ error: 'Project not found.' })
-  }
+  return projectIndex = projects.findIndex(project => project.id === id)
 }
 
 app.use(logRequests)
@@ -54,7 +50,7 @@ app.post('/projects', (request, response) => {
 
   const project = { id: uuid(), title, owner }
 
-  project.push(project)
+  projects.push(project)
 
   return response.json(project)
 })
@@ -63,7 +59,9 @@ app.put('/projects/:id', (request, response) => {
   const { id } = request.params
   const { title, owner } = request.body
 
-  projectIndex(id)
+  if (projectIndex(id) < 0) {
+    return response.status(400).json({ error: 'Project not found.' })
+  }
 
   const project = {
     id, 
@@ -79,7 +77,9 @@ app.put('/projects/:id', (request, response) => {
 app.delete('/projects/:id', (request, response) => {
   const { id } = request.params
 
-  projectIndex(id)
+  if (projectIndex(id) < 0) {
+    return response.status(400).json({ error: 'Project not found.' })
+  }
 
   projects.splice(projectIndex, 1)
 
